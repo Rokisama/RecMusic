@@ -15,3 +15,10 @@ Content-Type: application/json
   "username": "testuser",
   "password": "Test1234"
 }
+
+### See user information
+GET http://localhost:8000/api/users/profile/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxMDE2NTY2LCJpYXQiOjE3NDEwMTYyNjYsImp0aSI6IjdiMDI2NmQ4NThjZTQ1N2U5MjQ3NjNiMWZmYjIyMjQ2IiwidXNlcl9pZCI6MX0.g1aZcTZ-vreFe_7KNMsz_JkquTqA1BWX7RE9TKQl37A
+
+### See songs
+GET http://localhost:8000/api/songs

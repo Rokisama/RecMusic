@@ -4,7 +4,7 @@ from rest_framework import status, permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from .serializers import UserRegisterSerializer, UserSerializer
 from django.contrib.auth import get_user_model
 from django.views import View
@@ -53,10 +53,11 @@ class LoginView(APIView):
         except json.JSONDecodeError:
             return JsonResponse({"error": "Invalid JSON"}, status=400)
 
-@method_decorator(csrf_exempt, name='dispatch')
-class ProfileView(View):
-    permission_classes = [permissions.IsAuthenticated]
 
+class ProfileView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    @csrf_exempt
     def get(self, request):
         user = request.user
         serializer = UserSerializer(user)
