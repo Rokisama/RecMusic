@@ -16,12 +16,12 @@ from django.http import JsonResponse
 User = get_user_model()
 
 class RegisterView(APIView):
-    permission_classes = [AllowAny]  # Allow anyone to register
+    permission_classes = [AllowAny]
 
-    @csrf_exempt  # Disable CSRF for API requests
+    @csrf_exempt
     def post(self, request):
         try:
-            data = json.loads(request.body)  # Parse JSON manually
+            data = json.loads(request.body)
             serializer = UserRegisterSerializer(data=data)
             if serializer.is_valid():
                 serializer.save()
@@ -32,12 +32,12 @@ class RegisterView(APIView):
 
 
 class LoginView(APIView):
-    permission_classes = [AllowAny]  # Allow anyone to log in
+    permission_classes = [AllowAny]
 
-    @csrf_exempt  # Disable CSRF for API requests
+    @csrf_exempt
     def post(self, request):
         try:
-            data = json.loads(request.body)  # Parse JSON manually
+            data = json.loads(request.body)
             username = data.get("username")
             password = data.get("password")
             user = authenticate(request, username=username, password=password)
