@@ -4,7 +4,7 @@ from .models import Song, Playlist
 class SongSerializer(serializers.ModelSerializer):
     class Meta:
         model = Song
-        fields = "__all__"
+        fields = ['track_id', 'name', 'artist', 'spotify_preview_url', 'spotify_id', 'tags']
 
 class PlaylistSerializer(serializers.ModelSerializer):
     songs = SongSerializer(many=True, read_only=True)

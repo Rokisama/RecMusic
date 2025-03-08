@@ -5,12 +5,12 @@ User = get_user_model()
 
 # Create your models here.
 class Song(models.Model):
-    track_id = models.CharField(max_length=50)
-    name = models.CharField(max_length=50)
-    artist = models.CharField(max_length=50)
-    spotify_preview_url = models.URLField()
-    spotify_id = models.CharField(max_length=50)
-    tags = models.CharField(max_length=100)
+    track_id = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
+    artist = models.CharField(max_length=255)
+    spotify_preview_url = models.URLField(max_length=500)
+    spotify_id = models.CharField(max_length=255)
+    tags = models.CharField(max_length=500)
     year = models.IntegerField()
     duration_ms = models.IntegerField()
     danceability = models.FloatField()

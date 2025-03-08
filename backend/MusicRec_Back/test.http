@@ -22,3 +22,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiY
 
 ### See songs
 GET http://localhost:8000/api/songs
+
+### Search songs
+GET http://localhost:8000/api/songs/search/?q=nirvana
+

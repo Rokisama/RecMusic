@@ -1,0 +1,44 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap");
+
+
+
+.Toolbar {
+
+    color: #ffffff;
+    padding: 16px 16px;
+    font-size: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.SearchBar {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.ToolbarRight {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+
+
+
+
+.Username {
+    font-weight: bold;
+}
+
+.LogoutBtn {
+    background-color: #ff4500;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}

@@ -1,0 +1,14 @@
+
+.SongList{
+    display: flex;
+    width: 900px;
+    height: 500px;
+    background-color: #18181c;
+    color: white;
+    flex-direction: column;
+    padding: 20px;
+    gap: 16px;
+    position: absolute;
+    top: 340px;
+    left: 330px
+}

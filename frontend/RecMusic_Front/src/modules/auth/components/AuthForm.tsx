@@ -3,6 +3,7 @@ import { string, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {Link, useNavigate} from "react-router-dom";
 import { useAuth } from "../AuthContext.tsx";
+import  "./AuthForm.css";
 
 const schema = (mode: "register" | "login") =>
     z
@@ -63,7 +64,7 @@ const AuthForm = ({ mode }: AuthFormProps) => {
             const result = await response.json().catch(() => null); // Handle empty response
             console.log(`${mode === "register" ? "Registration" : "Login"} successful:`, result);
 
-            login(result.access, result.refresh);
+            login(result.access, result.refresh, result.user);
             navigate("/");
 
         } catch (error) {
@@ -72,9 +73,10 @@ const AuthForm = ({ mode }: AuthFormProps) => {
     };
 
     return (
-        <div>
-            <h2>{mode === "register" ? "Sign Up" : "Login"}</h2>
-            <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="AuthFormContainer bg-primary">
+            <div className="AuthForm">
+            <h2 className="FormTitle">{mode === "register" ? "Sign Up" : "Login"}</h2>
+            <form onSubmit={handleSubmit(onSubmit)} className="Form">
                 <div>
                     <input {...register("username")} type="text" placeholder="Username" />
                     {errors.username && <p>{errors.username.message}</p>}
@@ -90,7 +92,7 @@ const AuthForm = ({ mode }: AuthFormProps) => {
                     </div>
                 )}
                 <button disabled={isSubmitting} type="submit">
-                    {isSubmitting ? "Loading..." : mode === "register" ? "Sign Up" : "Login"}
+                    {isSubmitting ? "Loading..." : mode === "register" ? "Sign Up" : "Sign In"}
                 </button>
                 {mode !== "register" && (
                     <div>
@@ -98,6 +100,7 @@ const AuthForm = ({ mode }: AuthFormProps) => {
                     </div>
                 )}
             </form>
+            </div>
         </div>
     );
 };

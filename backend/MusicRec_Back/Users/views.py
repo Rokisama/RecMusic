@@ -46,7 +46,10 @@ class LoginView(APIView):
                 refresh = RefreshToken.for_user(user)
                 update_last_login(None, user)
                 return JsonResponse(
-                    {"refresh": str(refresh), "access": str(refresh.access_token)},
+                    {"refresh": str(refresh),
+                     "access": str(refresh.access_token),
+                     "user": {"id": user.id,
+                              "username": user.username}},
                     status=200
                 )
             return JsonResponse({"error": "Invalid credentials"}, status=401)

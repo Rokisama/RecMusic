@@ -1,11 +1,13 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
-from songs.models import Song
+from songs.models import Song, Playlist, LikedSong
 from rest_framework.views import APIView
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from .serializers import SongSerializer
+from django.db.models import Q
+from django.db.models.functions import Lower
 
 class SongsView(APIView):
     permission_classes = [IsAuthenticated]
@@ -13,6 +15,26 @@ class SongsView(APIView):
     @csrf_exempt
     def get(self, request):
         songs = Song.objects.all()
+        serializer = SongSerializer(songs, many=True)
+        return Response(serializer.data)
+
+class SearchSongsView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    @csrf_exempt
+    def get(self, request):
+        query = request.GET.get("q", "").strip()
+
+        if not query:
+            return Response({"error": "Query parameter 'q' is required"}, status=400)
+
+        songs = Song.objects.annotate(
+            name_lower=Lower("name"),
+            artist_lower=Lower("artist")
+        ).filter(
+            Q(name_lower__icontains=query) | Q(artist_lower__icontains=query)
+        )
+
         serializer = SongSerializer(songs, many=True)
         return Response(serializer.data)
 

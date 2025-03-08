@@ -1,10 +1,14 @@
-
+import Toolbar from "../components/StaticMenus/Toolbar.tsx";
+import Menu from "../components/StaticMenus/Menu.tsx";
+import SearchedSongs from "../components/SongDisplays/SearchedSongs.tsx";
 
 export default function HomePage() {
 
     return (
         <div>
-            <h1>Home page</h1>
+            <Menu/>
+            <Toolbar/>
+
         </div>
     );
 
