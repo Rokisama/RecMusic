@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
+from datetime import timedelta
 
 IN_DOCKER = os.getenv("DOCKER_ENV") == "1"
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -146,3 +147,13 @@ CORS_ALLOW_CREDENTIALS = True
 CRSF_COOKIE_HTTPONLY = True
 CRSF_COOKIE_SECURE = False
 SESSION_COOKIE_SECURE = True
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
+    "ROTATE_REFRESH_TOKENS": True,
+    "BLACKLIST_AFTER_ROTATION": True,
+    "ALGORITHM": "HS256",
+    "SIGNING_KEY": SECRET_KEY,
+    "AUTH_HEADER_TYPES": ("Bearer",),
+}

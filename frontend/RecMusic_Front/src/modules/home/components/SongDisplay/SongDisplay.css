@@ -1,0 +1,45 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+
+.SongList {
+    display: flex;
+    width: 50vw;
+    max-height: 55vh;
+    min-width: 250px;
+    min-height: 300px;
+    background-color: #18181c;
+    color: white;
+    flex-direction: column;
+    padding: 20px;
+    gap: 16px;
+    position: fixed;
+    bottom: 16px;
+    left: 330px;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: #888 #222;
+}
+
+.Song {
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    justify-content: space-between;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+}
+
+.Buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.DisplayName {
+    font-family: 'Poppins', sans-serif;
+    font-size: 24px;
+}

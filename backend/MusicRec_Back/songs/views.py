@@ -1,13 +1,14 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, JsonResponse
 from songs.models import Song, Playlist, LikedSong
 from rest_framework.views import APIView
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
-from .serializers import SongSerializer
+from .serializers import SongSerializer, PlaylistSerializer
 from django.db.models import Q
 from django.db.models.functions import Lower
+from rest_framework import status
 
 class SongsView(APIView):
     permission_classes = [IsAuthenticated]
@@ -72,10 +73,16 @@ class UserLikedSongsView(APIView):
 class PlaylistView(APIView):
     permission_classes = [IsAuthenticated]
 
-    def get(self, request):
-        playlists = Playlist.objects.filter(user=request.user)
-        serializer = PlaylistSerializer(playlists, many=True)
+    def get(self, request, playlist_id=None):
+        if playlist_id is not None:
+            playlist = get_object_or_404(Playlist, id=playlist_id, user=request.user)
+            serializer = PlaylistSerializer(playlist)
+        else:
+            playlists = Playlist.objects.filter(user=request.user)
+            serializer = PlaylistSerializer(playlists, many=True)
+
         return Response(serializer.data)
+
 
     def post(self, request):
         name = request.data.get("name")

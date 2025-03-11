@@ -1,8 +1,8 @@
 import React, {use, useState} from "react";
 import {useAuth} from "../../../auth/AuthContext.tsx";
 import "./Toolbar.css"
-import SearchedSongs from "../SongDisplays/SearchedSongs.tsx";
-import Cookies from "js-cookie";
+import SongDisplay from "../SongDisplay/SongDisplay.tsx";
+import {searchSongs} from "../../SongApis.tsx";
 
 export type Song = {
     id: number;
@@ -12,50 +12,33 @@ export type Song = {
     spotify_id: string;
 };
 
-const Toolbar = () => {
+const Toolbar = ({setDisplayName, setDisplayData}) => {
     const [search, setSearch] = useState("");
-    const [songs, setSongs] = useState<Song[]>([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
-
     const { logout, user } = useAuth();
 
-    const searchSongs = async () => {
-        if (search.trim() === "") {
-            setError("Please enter a song or artist name.");
-            return;
-        }
-        setLoading(true);
-        setError("");
-        const token = Cookies.get("access_token");
+    const handleSearch = async () => {
         try {
-            const response = await fetch(`http://localhost:8000/api/songs/search/?q=${search}`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
-                },
-                credentials: "include",
-            });
+            setLoading(true);
+            setError("");
 
-            if (!response.ok) throw new Error("Failed to fetch songs");
-
-            const data = await response.json();
-            setSongs(data);
-
+            const data = await searchSongs(search);
+            setDisplayName("Search results");
+            setDisplayData(data);
         } catch (err) {
-            setError("Error fetching songs. Try again.");
+            setError(err.message);
+        } finally {
+            setLoading(false);
+
         }
-
-        setLoading(false);
     }
-
 
     return (
         <div className="Toolbar">
 
             <div className="SearchBar">
-                <button onClick={searchSongs}>Submit</button>
+                <button onClick={handleSearch}>Submit</button>
                 <input type="text"
                        placeholder="Search..."
                        value={search}
@@ -68,7 +51,6 @@ const Toolbar = () => {
                 <button className="LogoutBtn" onClick={logout}>Logout</button>
             </div>
 
-            <SearchedSongs songs={songs} />
         </div>
     );
 }

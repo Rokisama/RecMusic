@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Roboto:wght@400&display=swap');
+
 .Menu {
     position: fixed;
     top: 0;
@@ -9,6 +11,41 @@
     display: flex;
     flex-direction: column;
     padding: 20px;
+    gap: 100px;
+}
+
+
+.Title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 32px;
+    font-weight: bold;
+    display: flex;
     justify-content: center;
-    gap: 16px;
+    padding: 4px;
+}
+
+
+.MenuContent {
+    display: flex;
+    flex-direction: column;
+    padding: 28px;
+    gap: 24px;
+    font-family: 'Poppins', sans-serif;
+
+}
+
+.MenuHeader {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+}
+
+.Btn {
+    font-family: 'Poppins ', sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+    color: white;
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: fit-content;
 }
