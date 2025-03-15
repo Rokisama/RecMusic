@@ -1,26 +1,21 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
 
 .SongList {
     display: flex;
     width: 50vw;
-    max-height: 55vh;
-    min-width: 250px;
-    min-height: 300px;
-    background-color: #18181c;
+    height: 40vh;
+    background-color: #211f27;
     color: white;
     flex-direction: column;
-    padding: 20px;
     gap: 16px;
-    position: fixed;
-    bottom: 16px;
-    left: 330px;
-
+    padding: 1.5vh 1vw;
+    user-select: none;
     overflow-y: auto;
-    overflow-x: hidden;
+    border-radius: 8px;
     scrollbar-width: thin;
     scrollbar-color: #888 #222;
+
 }
 
 .Song {
@@ -31,6 +26,7 @@
     font-family: 'Poppins', sans-serif;
     font-size: 16px;
     font-weight: 300;
+
 }
 
 .Buttons {
@@ -42,4 +38,11 @@
 .DisplayName {
     font-family: 'Poppins', sans-serif;
     font-size: 24px;
+}
+
+.ActionBtn{
+    background: none;
+    border: none;
+    color: #5772ff;
+    font-size: 20px;
 }

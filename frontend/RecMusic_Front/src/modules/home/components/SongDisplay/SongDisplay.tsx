@@ -4,11 +4,20 @@ import {likeSong, unlikeSong, getLikedSongs, addSongToPlaylist, removeSongFromPl
 import "./SongDisplay.css"
 import AddToPlaylistContext from "../StaticMenus/AddToPlaylistContext.tsx";
 
+import { library } from '@fortawesome/fontawesome-svg-core';
+import {faHeart as fasHeart, faPlay, faSquareMinus, faSquarePlus} from '@fortawesome/free-solid-svg-icons';
+import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons';
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+
+library.add(faPlay, fasHeart, farHeart);
+
 type SongsProps = {
     songs?: Song[];
     displayName?: string;
     playlistId?: string;
     setDisplayData?: (data: Song[]) => void;
+    onSelectSong: (song: Song) => void;
+    songsFromDisplay?: (data: Song[]) => void;
 };
 
 
@@ -16,8 +25,9 @@ const SongDisplay: React.FC<SongsProps> = ({
     songs = [],
     displayName = "",
     playlistId = "",
-    setDisplayData
-
+    setDisplayData,
+    onSelectSong,
+    songsFromDisplay,
 }) => {
     const [likedSongs, setLikedSongs] = useState<string[]>([]);
     const [selectedSongId, setSelectedSongId] = useState(null);
@@ -64,29 +74,31 @@ const SongDisplay: React.FC<SongsProps> = ({
     };
 
 
+
     return (
         <div className="SongList">
             <div className="DisplayName">{displayName}</div>
             <ul>
                 {songs.map((song) => (
                     <li className="Song" key={song.track_id}>
+                        <button className="ActionBtn" onClick={() => onSelectSong(song)}><FontAwesomeIcon icon={faPlay} /> </button>
                         {song.name} - {song.artist}
 
-                        <div className="Buttons">
-                            <button onClick={() => handleLikeToggle(song.track_id)}>
-                                {likedSongs.includes(song.track_id) ? "Unlike" : "Like"}
+                        <div>
+                            <button className="ActionBtn" onClick={() => handleLikeToggle(song.track_id)}>
+                                {likedSongs.includes(song.track_id) ? <FontAwesomeIcon icon={fasHeart} /> : <FontAwesomeIcon icon={farHeart} />}
                             </button>
 
                             {playlistId ? (
-                                <button onClick={() => handleRemoveFromPlaylist(song.track_id)}>
-                                    Remove
+                                <button className="ActionBtn" onClick={() => handleRemoveFromPlaylist(song.track_id)}>
+                                    <FontAwesomeIcon icon={faSquareMinus} />
                                 </button>
                             ) : (
                                 <>
-                                    <button onClick={() => {
+                                    <button className="ActionBtn" onClick={() => {
                                         setSelectedSongId(song.track_id);
                                         setShowPlaylistMenu(true);
-                                    }}>Add to Playlist</button>
+                                    }}><FontAwesomeIcon icon={faSquarePlus} /></button>
 
                                     {selectedSongId === song.track_id && showPlaylistMenu && (
                                         <AddToPlaylistContext

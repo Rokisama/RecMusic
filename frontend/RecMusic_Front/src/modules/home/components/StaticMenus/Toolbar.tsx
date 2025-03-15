@@ -1,8 +1,9 @@
 import React, {use, useState} from "react";
 import {useAuth} from "../../../auth/AuthContext.tsx";
 import "./Toolbar.css"
-import SongDisplay from "../SongDisplay/SongDisplay.tsx";
 import {searchSongs} from "../../SongApis.tsx";
+import {faMagnifyingGlass} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 export type Song = {
     id: number;
@@ -10,6 +11,7 @@ export type Song = {
     name: string;
     artist: string;
     spotify_id: string;
+    spotify_preview_url: string;
 };
 
 const Toolbar = ({setDisplayName, setDisplayData}) => {
@@ -38,8 +40,8 @@ const Toolbar = ({setDisplayName, setDisplayData}) => {
         <div className="Toolbar">
 
             <div className="SearchBar">
-                <button onClick={handleSearch}>Submit</button>
-                <input type="text"
+                <button className="SearchBtn" onClick={handleSearch}><FontAwesomeIcon icon={faMagnifyingGlass} /></button>
+                <input className="SearchInput" spellCheck="false" type="text"
                        placeholder="Search..."
                        value={search}
                        onChange={(e) => setSearch(e.target.value)}/>

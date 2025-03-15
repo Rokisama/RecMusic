@@ -1,19 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Roboto:wght@400&display=swap');
 
-.Menu {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    width: 250px;
-    background-color: #18181c;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    gap: 100px;
-}
-
 
 .Title {
     font-family: 'Poppins', sans-serif;
@@ -23,7 +9,6 @@
     justify-content: center;
     padding: 4px;
 }
-
 
 .MenuContent {
     display: flex;
@@ -48,4 +33,49 @@
     border: none;
     cursor: pointer;
     width: fit-content;
+    display: flex;
+    gap: 16px;
+}
+
+.PlaylistInput {
+    padding: 8px;
+    margin-left: 8px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    outline: none;
+    width: 60%;
+    background-color: #18181c;
+    color: white;
+    font-family: 'Poppins ', sans-serif;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.PlaylistInput:focus {
+    border-color: #5772ff;
+    box-shadow: 0 0 8px rgba(102, 175, 233, 0.6);
+}
+
+.Playlists {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 20vh;
+
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #888 #222;
+}
+
+.PlaylistItem {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.PlaylistSubmitBtn {
+    width: fit-content;
+    height: fit-content;
+    background: none;
+    border: none;
+    color: white;
 }

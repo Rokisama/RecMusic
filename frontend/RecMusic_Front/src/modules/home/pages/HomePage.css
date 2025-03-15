@@ -1,0 +1,102 @@
+
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+
+    background: rgb(27, 27, 31);
+    background: linear-gradient(0deg, rgba(24,24,28,1) 0%, rgb(16, 16, 16) 100%);
+    overflow: hidden;
+}
+
+
+.AppContainer {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+}
+
+
+.Menu {
+    width: 15vw;
+    min-width: 250px;
+    height: 100vh;
+    background-color: #18181c;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 2vh 1vw;
+    gap: 2vh;
+    flex-shrink: 0;
+    user-select: none;
+}
+
+
+.MainContent {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+
+.Toolbar {
+    width: 95%;
+    height: 10vh;
+    color: #ffffff;
+    padding: 1.5vh 2vw;
+    font-size: 1.2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+}
+
+
+.ContentContainer {
+    display: flex;
+    flex-grow: 1;
+    width: 95%;
+    height: 100%;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 2vh 2vw;
+    gap: 2vw;
+    overflow: hidden;
+}
+
+
+.SongDisplay {
+    flex: 2;
+    max-width: 55vw;
+    height: 100%;
+    min-height: 300px;
+    background-color: #211f27;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 2vh;
+    gap: 1vh;
+
+}
+
+
+.SongPlayer {
+    flex: 1;
+    max-width: 30vw;
+    min-width: 250px;
+    height: 90%;
+    min-height: 300px;
+    background-color: #211f27;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 2vh;
+    gap: 1vh;
+    border-radius: 8px;
+    user-select: none;
+}

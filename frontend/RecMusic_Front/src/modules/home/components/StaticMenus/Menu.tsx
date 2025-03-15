@@ -1,6 +1,10 @@
 import React, {useEffect, useState} from "react";
 import "./Menu.css"
 import {getLikedSongs, createPlaylist, getPlaylists, deletePlaylist, getPlaylist} from "../../SongApis.tsx";
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {faClock, faIcons, faHeart, faPlus, faXmark} from '@fortawesome/free-solid-svg-icons';
+
 const Menu = ({setDisplayName, setDisplayMode, setDisplayData, setPlaylistId}) => {
     const [playlistName, setPlaylistName] = useState("");
     const [playlists, setPlaylists] = useState<string[]>([]);
@@ -61,39 +65,40 @@ const Menu = ({setDisplayName, setDisplayMode, setDisplayData, setPlaylistId}) =
 
     return (
         <div className="Menu">
-
             <div className="Title">RecMusic</div>
-
             <div className="MenuContent">
                 <div className="MenuHeader">MENU</div>
 
-                <button className="Btn">Genres</button>
+                <button className="Btn"><FontAwesomeIcon icon={faIcons} />  Genres</button>
 
                 <div className="MenuHeader">LIBRARY</div>
 
-                <button className="Btn">Recent</button>
+                <button className="Btn"> <FontAwesomeIcon icon={faClock} />  Recent</button>
 
-                <button className="Btn" onClick={handleLikedDisplay}>Liked</button>
+                <button className="Btn" onClick={handleLikedDisplay}> <FontAwesomeIcon icon={faHeart} />  Liked</button>
 
                 <div className="MenuHeader">PLAYLIST</div>
-
-                <button onClick={handleCreatePlaylist}>Submit</button>
-                <input type="text"
+                <div>
+                <button className="PlaylistSubmitBtn" onClick={handleCreatePlaylist}><FontAwesomeIcon icon={faPlus} /> </button>
+                <input className="PlaylistInput"
+                       spellCheck="false"
+                       type="text"
                        placeholder="Create New"
                        value={playlistName}
                        onChange={(e) => setPlaylistName(e.target.value)}/>
-
+                </div>
+                <div className="Playlists">
                 {playlists.length > 0 ? (
                     playlists.map((playlist) => (
                         <div key={playlist.id} className="PlaylistItem">
                             <button className="Btn" onClick={() => handlePlaylistDisplay(playlist)}>{playlist.name}</button>
-                            <button onClick={() => handleDeletePlaylist(playlist.id)}>Delete</button>
+                            <button className="PlaylistSubmitBtn" onClick={() => handleDeletePlaylist(playlist.id)}><FontAwesomeIcon icon={faXmark} /></button>
                         </div>
                     ))
                 ) : (
                     <p>No Playlists Yet</p>
                 )}
-
+                </div>
             </div>
         </div>
     );
