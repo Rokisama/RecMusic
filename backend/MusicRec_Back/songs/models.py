@@ -1,7 +1,6 @@
 from django.db import models
-from django.contrib.auth import get_user_model
+from django.conf import settings
 
-User = get_user_model()
 
 # Create your models here.
 class Song(models.Model):
@@ -27,14 +26,14 @@ class Song(models.Model):
     time_signature = models.FloatField()
 
 class LikedSong(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     song = models.ForeignKey(Song, on_delete=models.CASCADE)
 
     class Meta:
         unique_together = ('user', 'song')
 
 class Playlist(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
     songs = models.ManyToManyField(Song, related_name='playlists')
 

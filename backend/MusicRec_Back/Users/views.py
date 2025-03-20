@@ -13,6 +13,7 @@ from django.utils.decorators import method_decorator
 import json
 from django.http import JsonResponse
 
+
 User = get_user_model()
 
 class RegisterView(APIView):
@@ -65,3 +66,4 @@ class ProfileView(APIView):
         user = request.user
         serializer = UserSerializer(user)
         return Response(serializer.data)
+

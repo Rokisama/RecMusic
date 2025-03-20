@@ -1,6 +1,7 @@
 import Cookies from "js-cookie";
-
 const API_URL = "http://localhost:8000/api/songs"
+
+
 
 export const likeSong = async (songTrackId: string) => {
     const token = Cookies.get("access_token");
@@ -21,6 +22,7 @@ export const likeSong = async (songTrackId: string) => {
 
 export const unlikeSong = async (songTrackId: string) => {
     const token = Cookies.get("access_token");
+
     if (!token) throw new Error("User is not authenticated");
 
     const response = await fetch(`${API_URL}/unlike/${songTrackId}/`, {
@@ -31,7 +33,6 @@ export const unlikeSong = async (songTrackId: string) => {
         },
         credentials: "include",
     });
-
     if (!response.ok) throw new Error("Failed to unlike song");
     return await response.json();
 };
@@ -145,6 +146,7 @@ export const deletePlaylist = async (playlistId: string) => {
 export const addSongToPlaylist = async (playlistId, songId) => {
     const token = Cookies.get("access_token");
 
+    console.log(songId);
     const response = await fetch(`${API_URL}/playlists/${playlistId}/add/${songId}/`, {
         method: "POST",
         headers: {
@@ -168,6 +170,7 @@ export const removeSongFromPlaylist = async (playlistId, songId) => {
             Authorization: `Bearer ${token}`,
         },
     });
+
 
     if (!response.ok) throw new Error("Failed to remove song from playlist");
 

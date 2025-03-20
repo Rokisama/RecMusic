@@ -33,9 +33,13 @@ const SongPlayer: React.FC<SongPlayerProps> = ({ song, songsFromDisplay }) => {
 
     useEffect(() => {
         if (song) {
-            const index = songsFromDisplay.findIndex((s) => s.id === song.id);
+            const index = songsFromDisplay.findIndex((s) => s.track_id === song.track_id);
+
             if (index !== -1) {
                 setCurrentIndex(index);
+                setIsPlaying(false);
+            } else {
+                console.warn("Song not found in list!");
             }
         }
     }, [song, songsFromDisplay]);

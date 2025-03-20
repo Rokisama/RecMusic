@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "users",
     "songs",
     "corsheaders",
+    "recommender",
 ]
 
 MIDDLEWARE = [

@@ -3,6 +3,8 @@ import {Song} from "../StaticMenus/Toolbar.tsx";
 import {likeSong, unlikeSong, getLikedSongs, addSongToPlaylist, removeSongFromPlaylist} from "../../SongApis.tsx";
 import "./SongDisplay.css"
 import AddToPlaylistContext from "../StaticMenus/AddToPlaylistContext.tsx";
+import useActivityTracker from "../../../helpers/ActivityTracker.tsx";
+
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {faHeart as fasHeart, faPlay, faSquareMinus, faSquarePlus} from '@fortawesome/free-solid-svg-icons';
@@ -32,6 +34,7 @@ const SongDisplay: React.FC<SongsProps> = ({
     const [likedSongs, setLikedSongs] = useState<string[]>([]);
     const [selectedSongId, setSelectedSongId] = useState(null);
     const [showPlaylistMenu, setShowPlaylistMenu] = useState(false);
+    const { logCustomActivity } = useActivityTracker();
 
     useEffect(() => {
         const fetchLikedSongs = async () => {
@@ -54,9 +57,11 @@ const SongDisplay: React.FC<SongsProps> = ({
             if (likedSongs.includes(songTrackId)) {
                 await unlikeSong(songTrackId);
                 setLikedSongs(likedSongs.filter(id => id !== songTrackId));
+                logCustomActivity("unlike", songTrackId);
             } else {
                 await likeSong(songTrackId);
                 setLikedSongs([...likedSongs, songTrackId]);
+                logCustomActivity("like", songTrackId);
             }
         } catch (err) {
             console.error("Error toggling like:", err);
@@ -67,13 +72,17 @@ const SongDisplay: React.FC<SongsProps> = ({
         if (!playlistId) return;
         try {
             await removeSongFromPlaylist(playlistId, songTrackId);
+            logCustomActivity("removePlaylist", songTrackId);
             setDisplayData?.((prevSongs) => prevSongs.filter(song => song.track_id !== songTrackId));
         } catch (err) {
             console.error("Error removing song from playlist:", err);
         }
     };
 
-
+    const handlePlaySong = (song: Song) => {
+        onSelectSong(song);
+        logCustomActivity("play", song.track_id);
+    }
 
     return (
         <div className="SongList">
@@ -81,7 +90,7 @@ const SongDisplay: React.FC<SongsProps> = ({
             <ul>
                 {songs.map((song) => (
                     <li className="Song" key={song.track_id}>
-                        <button className="ActionBtn" onClick={() => onSelectSong(song)}><FontAwesomeIcon icon={faPlay} /> </button>
+                        <button className="ActionBtn" onClick={() => handlePlaySong(song)}><FontAwesomeIcon icon={faPlay} /> </button>
                         {song.name} - {song.artist}
 
                         <div>

@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { addSongToPlaylist, getPlaylists } from "../../SongApis.tsx";
 import "./AddToPlaylistContext.css";
+import useActivityTracker from "../../../helpers/ActivityTracker.tsx";
 
 const AddToPlaylistContext = ({ songId, onClose, onUpdate }) => {
     const [playlists, setPlaylists] = useState<{ id: string; name: string }[]>([]);
     const menuRef = useRef<HTMLDivElement | null>(null);
+    const { logCustomActivity } = useActivityTracker();
 
     useEffect(() => {
         const fetchPlaylists = async () => {
@@ -30,6 +32,8 @@ const AddToPlaylistContext = ({ songId, onClose, onUpdate }) => {
     const handleAddToPlaylist = async (playlistId) => {
         try {
             await addSongToPlaylist(playlistId, songId);
+            logCustomActivity("addPlaylist", songId);
+
             onClose();
             onUpdate();
         } catch (err) {
