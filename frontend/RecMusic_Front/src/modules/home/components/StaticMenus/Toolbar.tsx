@@ -5,15 +5,6 @@ import {searchSongs} from "../../SongApis.tsx";
 import {faMagnifyingGlass} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
-export type Song = {
-    id: number;
-    track_id: string;
-    name: string;
-    artist: string;
-    spotify_id: string;
-    spotify_preview_url: string;
-};
-
 const Toolbar = ({setDisplayName, setDisplayData}) => {
     const [search, setSearch] = useState("");
     const [loading, setLoading] = useState(false);

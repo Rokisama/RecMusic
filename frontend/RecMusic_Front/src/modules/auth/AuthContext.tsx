@@ -32,7 +32,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             }
         } catch (error) {
             console.error("Error parsing user cookie:", error);
-            Cookies.remove("user"); // Remove invalid cookie to prevent future issues
+            Cookies.remove("user");
         }
     }, []);
 

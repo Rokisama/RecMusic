@@ -9,7 +9,7 @@ const schema = (mode: "register" | "login") =>
     z
         .object({
             username: z.string().min(1, "Username is required"),
-            password: z.string().min(6, "Password must be at least 6 characters"),
+            password: z.string().min(4, "Password must be at least 6 characters"),
             confirmPassword: mode === "register"
                 ? z.string().min(6, "Password must be at least 6 characters")
                 : z.string().optional(),
@@ -78,11 +78,11 @@ const AuthForm = ({ mode }: AuthFormProps) => {
             <h2 className="FormTitle">{mode === "register" ? "Sign Up" : "Login"}</h2>
             <form onSubmit={handleSubmit(onSubmit)} className="Form">
                 <div>
-                    <input {...register("username")} type="text" placeholder="Username" />
+                    <input className="Input" {...register("username")} type="text" placeholder="Username" />
                     {errors.username && <p>{errors.username.message}</p>}
                 </div>
                 <div>
-                    <input {...register("password")} type="password" placeholder="Password" />
+                    <input className="Input" {...register("password")} type="password" placeholder="Password" />
                     {errors.password && <p>{errors.password.message}</p>}
                 </div>
                 {mode === "register" && (
@@ -91,7 +91,7 @@ const AuthForm = ({ mode }: AuthFormProps) => {
                         {errors.confirmPassword && <p>{errors.confirmPassword.message}</p>}
                     </div>
                 )}
-                <button disabled={isSubmitting} type="submit">
+                <button className="SubmitBtn" disabled={isSubmitting} type="submit">
                     {isSubmitting ? "Loading..." : mode === "register" ? "Sign Up" : "Sign In"}
                 </button>
                 {mode !== "register" && (

@@ -1,13 +1,15 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import Cookies from "js-cookie";
 
 let activityLog: { type: string; timestamp: string; songId?: string }[] = [];
-let intervalRunning = false;
 
 const useActivityTracker = () => {
+    const intervalRef = useRef<number | null>(null);
+
     const logCustomActivity = (type: string, songId?: string) => {
-        activityLog.push({ type, timestamp: new Date().toISOString(), songId });
-        console.log("Logged activity:", type, songId);
+        const timestamp = new Date().toISOString();
+        activityLog.push({ type, timestamp, songId });
+        console.log("Logged activity:", type, songId, timestamp);
     };
 
     const sendActivityToBackend = async () => {
@@ -25,7 +27,13 @@ const useActivityTracker = () => {
                 return;
             }
 
-            const user = JSON.parse(userCookie);
+            let user;
+            try {
+                user = JSON.parse(userCookie);
+            } catch (e) {
+                console.error("Error parsing user cookie", e);
+                return;
+            }
             const userId = user.id;
 
             console.log("Sending logs to backend:", activityLog);
@@ -54,17 +62,17 @@ const useActivityTracker = () => {
     };
 
     useEffect(() => {
-        if (!intervalRunning) {
-            console.log("Activity tracking started.");
-            intervalRunning = true;
+        console.log("Activity tracking started.");
 
-            setInterval(() => {
-                sendActivityToBackend();
-            }, 10000);
-        }
+        intervalRef.current = setInterval(() => {
+            sendActivityToBackend();
+        }, 10000);
 
         return () => {
-            console.log("Activity tracker is still running in the background.");
+            if (intervalRef.current) {
+                clearInterval(intervalRef.current);
+                console.log("Activity tracker interval cleared.");
+            }
         };
     }, []);
 

@@ -1,9 +1,11 @@
-import Toolbar, {Song} from "../components/StaticMenus/Toolbar.tsx";
+import Toolbar from "../components/StaticMenus/Toolbar.tsx";
 import Menu from "../components/StaticMenus/Menu.tsx";
 import SongDisplay from "../components/SongDisplay/SongDisplay.tsx";
-import {use, useState} from "react";
+import {use, useEffect, useState} from "react";
 import SongPlayer from "../components/SongPlayer/SongPlayer.tsx";
 import "./HomePage.css";
+import {getRecommendedSongs} from "../SongApis.tsx";
+import {Song} from "../../helpers/models/Song.tsx";
 
 export default function HomePage() {
 
@@ -13,6 +15,21 @@ export default function HomePage() {
     const [playlistId, setPlaylistId] = useState("");
     const [currentSong, setCurrentSong] = useState<Song | null>(null);
     const [songsFromDisplay, setSongsFromDisplay] = useState<Song[]>([]);
+
+    useEffect(() => {
+        getRecommendedSongs()
+            .then((data) => {
+                console.log("Returned data:", data);
+
+                const songsArray = Array.isArray(data.recommendations) ? data.recommendations : [];
+                setDisplayData(songsArray);
+            })
+            .catch((error) => {
+                console.error("Error fetching recommended songs:", error);
+            });
+    }, []);
+
+
 
     return (
         <>

@@ -1,7 +1,7 @@
 import "./SongPlayer.css";
 import React, { useRef, useState, useEffect } from "react";
-import { Song } from "../StaticMenus/Toolbar.tsx";
-
+import { Song } from "../../../helpers/models/Song.tsx";
+import useActivityTracker from "../../../helpers/ActivityTracker.tsx";
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {faPause, faPlay, faForward, faBackward} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -30,6 +30,7 @@ const SongPlayer: React.FC<SongPlayerProps> = ({ song, songsFromDisplay }) => {
     const audioRef = useRef<HTMLAudioElement | null>(null);
     const [currentTime, setCurrentTime] = useState(0);
     const [duration, setDuration] = useState(0);
+    const { logCustomActivity } = useActivityTracker();
 
     useEffect(() => {
         if (song) {
@@ -111,6 +112,12 @@ const SongPlayer: React.FC<SongPlayerProps> = ({ song, songsFromDisplay }) => {
     };
 
     const handleNext = () => {
+        const audio = audioRef.current;
+        if (audio && audio.currentTime < 5) {
+            logCustomActivity("skip", songsFromDisplay[currentIndex].track_id);
+            console.log("skip", songsFromDisplay[currentIndex].track_id);
+        }
+
         if (currentIndex < songsFromDisplay.length - 1) {
             setCurrentIndex(currentIndex + 1);
             setIsPlaying(true);

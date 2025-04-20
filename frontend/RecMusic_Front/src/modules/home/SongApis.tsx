@@ -194,3 +194,26 @@ export const getPlaylist = async (playlistId: string) => {
 
     return await response.json();
 };
+
+export const getRecommendedSongs = async () => {
+
+    const token = Cookies.get("access_token");
+    if (!token) throw new Error("User is not authenticated");
+
+    try {
+        const response = await fetch(`http://localhost:8000/api/recommender/recommend/`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+            credentials: "include",
+        });
+
+        if (!response.ok) throw new Error("Failed to fetch recommended songs");
+
+        return await response.json();
+    } catch (err) {
+        throw new Error("Error fetching recommended songs. Try again.");
+    }
+};

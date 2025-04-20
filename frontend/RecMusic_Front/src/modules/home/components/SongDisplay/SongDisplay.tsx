@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Song} from "../StaticMenus/Toolbar.tsx";
+import {Song} from "../../../helpers/models/Song.tsx";
 import {likeSong, unlikeSong, getLikedSongs, addSongToPlaylist, removeSongFromPlaylist} from "../../SongApis.tsx";
 import "./SongDisplay.css"
 import AddToPlaylistContext from "../StaticMenus/AddToPlaylistContext.tsx";

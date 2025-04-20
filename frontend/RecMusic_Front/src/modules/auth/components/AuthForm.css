@@ -4,6 +4,7 @@ body{
     background-color: #101012;
     color: #ffffff;
     font-family: "Inter", sans-serif;
+    justify-content: center;
 }
 
 
@@ -12,7 +13,6 @@ body{
     justify-content: center;
     align-items: center;
     height: 100vh;
-    text-color: white;
 }
 
 .AuthForm {
@@ -29,4 +29,31 @@ body{
     flex-direction: column;
     gap: 15px;
     padding: 20px;
+}
+
+.Input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    outline: none;
+    background-color: #18181c;
+    color: white;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    width: 90%;
+}
+
+.Input:focus {
+    border-color: #5772ff;
+    box-shadow: 0 0 8px rgba(102, 175, 233, 0.6);
+}
+
+.SubmitBtn {
+    background-color: #5772ff;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
 }
