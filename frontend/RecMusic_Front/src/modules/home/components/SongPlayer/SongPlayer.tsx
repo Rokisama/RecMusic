@@ -140,7 +140,12 @@ const SongPlayer: React.FC<SongPlayerProps> = ({ song, songsFromDisplay }) => {
     };
 
     return (
-        <div className="SongPlayer">
+        <div className="SongPlayer" style={{
+            backgroundImage: `url(https://picsum.photos/seed/${currentSong.track_id}/800/400)`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat"
+        }}>
             <div aria-label="PlayerControls" role="region" className="PlayerControls">
                 <div className="SongInfo">
                     {`${currentSong.name} - ${currentSong.artist}`}

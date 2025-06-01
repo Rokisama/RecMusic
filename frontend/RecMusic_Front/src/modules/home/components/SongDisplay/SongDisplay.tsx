@@ -91,9 +91,16 @@ const SongDisplay: React.FC<SongsProps> = ({
                 {songs.map((song) => (
                     <li className="Song" key={song.track_id}>
                         <button aria-label="play song" className="ActionBtn" onClick={() => handlePlaySong(song)}><FontAwesomeIcon icon={faPlay} /> </button>
-                        {song.name} - {song.artist}
 
-                        <div>
+                        <img
+                            src={`https://picsum.photos/seed/${song.track_id}/60/60`}
+                            alt="Cover art"
+                            className="SongCover"
+                        />
+                        <div className="SongText">
+                        {song.name} - {song.artist}
+                        </div>
+                        <div className="SongActions">
                             <button aria-label="like song" className="ActionBtn" onClick={() => handleLikeToggle(song.track_id)}>
                                 {likedSongs.includes(song.track_id) ? <FontAwesomeIcon icon={fasHeart} /> : <FontAwesomeIcon icon={farHeart} />}
                             </button>

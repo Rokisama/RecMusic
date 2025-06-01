@@ -1,17 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
-
 .SongPlayer {
     display: flex;
     flex-direction: column;
     height: 100%;
+    filter: brightness(80%);
 }
 
 .PlayerControls {
+    width: 100%;
     margin-top: auto;
     display: flex;
     flex-direction: column;
     gap: 12px;
+    backdrop-filter: blur(6px);
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 1rem;
+    box-sizing: border-box;
+    border-radius: 10px;
 }
 
 .PlayerBtn {

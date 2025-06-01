@@ -12,6 +12,7 @@
     padding: 1.5vh 1vw;
     user-select: none;
     overflow-y: auto;
+    overflow-x: hidden;
     border-radius: 8px;
     scrollbar-width: thin;
     scrollbar-color: #888 #222;
@@ -22,11 +23,29 @@
     display: flex;
     padding: 10px;
     align-items: center;
-    justify-content: space-between;
+    justify-content: left;
+    gap: 20px;
     font-family: 'Poppins', sans-serif;
     font-size: 16px;
     font-weight: 300;
 
+}
+.SongCover {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    object-fit: cover;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+.SongActions {
+    display: flex;
+    justify-content: flex-end;
+    justify-self: flex-end;
+}
+.SongText {
+    flex: 1;
+    text-align: left;
+    justify-self: left;
 }
 
 .Buttons {
