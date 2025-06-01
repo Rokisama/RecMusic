@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-
+import sys
 from pathlib import Path
 import os
 from datetime import timedelta
@@ -76,18 +76,36 @@ WSGI_APPLICATION = 'MusicRec_Back.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+RUNNING_TESTS = (
+    'test' in sys.argv or
+    any('pytest' in arg for arg in sys.argv)
+)
 
-
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv("POSTGRES_DB", "musicrec"),
-        "USER": os.getenv("POSTGRES_USER", "admin"),
-        "PASSWORD": os.getenv("POSTGRES_PASSWORD", "securepassword"),
-        "HOST": "db" if IN_DOCKER else "localhost",  # Switch between Docker & Local
-        "PORT": os.getenv("POSTGRES_PORT", "5432"),
+if RUNNING_TESTS:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': ':memory:',
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.getenv('POSTGRES_DB', 'musicrec'),
+            'USER': os.getenv('POSTGRES_USER', 'admin'),
+            'PASSWORD': os.getenv('POSTGRES_PASSWORD', 'securepassword'),
+            'HOST': 'db' if IN_DOCKER else 'localhost',
+            'PORT': os.getenv('POSTGRES_PORT', '5432'),
+        }
+    }
+
+
+
+
+
+
+
 
 
 

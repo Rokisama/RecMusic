@@ -58,7 +58,7 @@ class UnlikeSongView(APIView):
         song = get_object_or_404(Song, track_id=song_id)
         deleted = LikedSong.objects.filter(user=request.user, song=song).delete()
 
-        if deleted[0]:  # If any row was deleted
+        if deleted[0]:
             return Response({"message": "Song unliked!"}, status=status.HTTP_200_OK)
         return Response({"message": "Song was not liked!"}, status=status.HTTP_404_NOT_FOUND)
 

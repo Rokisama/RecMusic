@@ -61,7 +61,7 @@ const AuthForm = ({ mode }: AuthFormProps) => {
                 throw new Error(`${mode === "register" ? "Registration" : "Login"} failed: ${errorText}`);
             }
 
-            const result = await response.json().catch(() => null); // Handle empty response
+            const result = await response.json().catch(() => null);
             console.log(`${mode === "register" ? "Registration" : "Login"} successful:`, result);
 
             login(result.access, result.refresh, result.user);
@@ -87,7 +87,7 @@ const AuthForm = ({ mode }: AuthFormProps) => {
                 </div>
                 {mode === "register" && (
                     <div>
-                        <input {...register("confirmPassword")} type="password" placeholder="Confirm Password" />
+                        <input className="Input" {...register("confirmPassword")} type="password" placeholder="Confirm Password" />
                         {errors.confirmPassword && <p>{errors.confirmPassword.message}</p>}
                     </div>
                 )}

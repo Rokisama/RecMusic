@@ -141,12 +141,12 @@ const SongPlayer: React.FC<SongPlayerProps> = ({ song, songsFromDisplay }) => {
 
     return (
         <div className="SongPlayer">
-            <div className="PlayerControls">
+            <div aria-label="PlayerControls" role="region" className="PlayerControls">
                 <div className="SongInfo">
                     {`${currentSong.name} - ${currentSong.artist}`}
                 </div>
 
-                <audio key={currentSong.id} ref={audioRef} autoPlay={isPlaying} />
+                <audio key={currentSong.id} ref={audioRef} autoPlay={isPlaying} role="audio"/>
 
                 <div>
                     <input

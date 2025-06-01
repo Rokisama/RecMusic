@@ -4,6 +4,10 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 from .models import UserActivity, Song
+from .services import sasrec
+from django.http import HttpResponse, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from songs.serializers import SongSerializer
 import json
 
 class UserActivityView(APIView):
@@ -33,3 +37,21 @@ class UserActivityView(APIView):
 
         except json.JSONDecodeError:
             return Response({"error": "Invalid JSON"}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class RecommendedSongsView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user_id = request.user.id
+
+        rec_track_ids = sasrec.recommend(user_id)
+
+        if not rec_track_ids:
+            return Response({"recommendations": []})
+
+        qs = Song.objects.filter(track_id__in=rec_track_ids)
+        songs_in_order = sorted(qs, key=lambda s: rec_track_ids.index(s.track_id))
+        serializer = SongSerializer(songs_in_order, many=True)
+        return Response({"recommendations": serializer.data})
+

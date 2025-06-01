@@ -90,21 +90,21 @@ const SongDisplay: React.FC<SongsProps> = ({
             <ul>
                 {songs.map((song) => (
                     <li className="Song" key={song.track_id}>
-                        <button className="ActionBtn" onClick={() => handlePlaySong(song)}><FontAwesomeIcon icon={faPlay} /> </button>
+                        <button aria-label="play song" className="ActionBtn" onClick={() => handlePlaySong(song)}><FontAwesomeIcon icon={faPlay} /> </button>
                         {song.name} - {song.artist}
 
                         <div>
-                            <button className="ActionBtn" onClick={() => handleLikeToggle(song.track_id)}>
+                            <button aria-label="like song" className="ActionBtn" onClick={() => handleLikeToggle(song.track_id)}>
                                 {likedSongs.includes(song.track_id) ? <FontAwesomeIcon icon={fasHeart} /> : <FontAwesomeIcon icon={farHeart} />}
                             </button>
 
                             {playlistId ? (
-                                <button className="ActionBtn" onClick={() => handleRemoveFromPlaylist(song.track_id)}>
+                                <button aria-label="remove from playlist" className="ActionBtn" onClick={() => handleRemoveFromPlaylist(song.track_id)}>
                                     <FontAwesomeIcon icon={faSquareMinus} />
                                 </button>
                             ) : (
                                 <>
-                                    <button className="ActionBtn" onClick={() => {
+                                    <button aria-label="add to playlist" className="ActionBtn" onClick={() => {
                                         setSelectedSongId(song.track_id);
                                         setShowPlaylistMenu(true);
                                     }}><FontAwesomeIcon icon={faSquarePlus} /></button>

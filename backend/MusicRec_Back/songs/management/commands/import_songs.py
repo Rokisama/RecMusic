@@ -14,12 +14,10 @@ class Command(BaseCommand):
         with open(csv_file_path, newline="", encoding="utf-8") as csvfile:
             reader = csv.DictReader(csvfile, skipinitialspace=True)
             reader.fieldnames[0] = reader.fieldnames[0].lstrip("\ufeff")
-
-            # ✅ Debug: Print detected headers
             print("CSV Headers:", reader.fieldnames)
 
             for row in reader:
-                print(row)  # Print first row to debug
+                print(row)
                 break
 
             songs_to_create = []

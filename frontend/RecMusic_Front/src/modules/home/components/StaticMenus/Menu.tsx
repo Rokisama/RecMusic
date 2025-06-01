@@ -1,6 +1,13 @@
 import React, {useEffect, useState} from "react";
 import "./Menu.css"
-import {getLikedSongs, createPlaylist, getPlaylists, deletePlaylist, getPlaylist} from "../../SongApis.tsx";
+import {
+    getLikedSongs,
+    createPlaylist,
+    getPlaylists,
+    deletePlaylist,
+    getPlaylist,
+    getRecommendedSongs
+} from "../../SongApis.tsx";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faClock, faIcons, faHeart, faPlus, faXmark} from '@fortawesome/free-solid-svg-icons';
@@ -38,7 +45,7 @@ const Menu = ({setDisplayName, setDisplayMode, setDisplayData, setPlaylistId}) =
             setPlaylistName("");
             fetchPlaylists();
         } catch (err) {
-            console.error("Error creating playlist:", err);
+            console.error("Error deleting playlist:", err);
         }
     }
 
@@ -58,7 +65,18 @@ const Menu = ({setDisplayName, setDisplayMode, setDisplayData, setPlaylistId}) =
         setPlaylistId(null);
     }
 
+    const handleRecommendedDisplay = async () => {
+        getRecommendedSongs()
+            .then((data) => {
+                console.log("Returned data:", data);
 
+                const songsArray = Array.isArray(data.recommendations) ? data.recommendations : [];
+                setDisplayData(songsArray);
+            })
+        setDisplayName("Recommended");
+        setDisplayMode("Liked");
+        setPlaylistId(null);
+    }
 
 
 
@@ -69,11 +87,9 @@ const Menu = ({setDisplayName, setDisplayMode, setDisplayData, setPlaylistId}) =
             <div className="MenuContent">
                 <div className="MenuHeader">MENU</div>
 
-                <button className="Btn"><FontAwesomeIcon icon={faIcons} />  Genres</button>
+                <button className="Btn" onClick={handleRecommendedDisplay} ><FontAwesomeIcon icon={faIcons} />  Recommended</button>
 
                 <div className="MenuHeader">LIBRARY</div>
-
-                <button className="Btn"> <FontAwesomeIcon icon={faClock} />  Recent</button>
 
                 <button className="Btn" onClick={handleLikedDisplay}> <FontAwesomeIcon icon={faHeart} />  Liked</button>
 

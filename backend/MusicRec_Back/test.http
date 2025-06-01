@@ -26,3 +26,6 @@ GET http://localhost:8000/api/songs
 ### Search songs
 GET http://localhost:8000/api/songs/search/?q=nirvana
 
+### Recommend songs
+GET http://localhost:8000/api/recommender/recommend/
+
